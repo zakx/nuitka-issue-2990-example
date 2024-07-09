@@ -1,3 +1,7 @@
+on:
+  push:
+    branches: [ main ]
+
 jobs:
   build:
     runs-on: windows-latest
@@ -30,7 +34,3 @@ jobs:
         with:
           name: exe
           path: build/*.exe
-
-      - name: run the artifact
-        run: .\build\run_advertiser.exe foo.json usb:0
-        shell: cmd
