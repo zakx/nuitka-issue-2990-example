@@ -1,0 +1,36 @@
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      # Check-out repository
+      - uses: actions/checkout@v4
+
+      # Setup Python
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          architecture: 'x64'
+          cache: 'pip'
+          cache-dependency-path: |
+            **/requirements*.txt
+
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - uses: Nuitka/Nuitka-Action@main
+        with:
+          nuitka-version: '2.3.11'
+          script-name: run_advertiser.py
+          standalone: true
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: exe
+          path: build/*.exe
+
+      - name: run the artifact
+        run: .\build\run_advertiser.exe foo.json usb:0
+        shell: cmd
