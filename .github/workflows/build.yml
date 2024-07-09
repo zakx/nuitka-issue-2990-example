@@ -28,6 +28,11 @@ jobs:
           nuitka-version: '2.3.11'
           script-name: run_advertiser.py
           standalone: true
+          onefile: false
+          report: true
+          report-diffable: true
+          quiet: false
+          show-scons: true
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
