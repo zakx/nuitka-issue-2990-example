@@ -29,7 +29,7 @@ jobs:
           script-name: run_advertiser.py
           standalone: true
           onefile: false
-          report: true
+          report: report.xml
           report-diffable: true
           quiet: false
           show-scons: true
@@ -37,5 +37,15 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: exe
-          path: build/*.exe
+          name: build folder
+          path: build/*
+
+      - name: Upload Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: report.xml
+          path: report.xml
+
+      - name: Document pip environment
+        run: |
+          pip list -v
