@@ -15,37 +15,7 @@ jobs:
         with:
           python-version: '3.12'
           architecture: 'x64'
-          cache: 'pip'
-          cache-dependency-path: |
-            **/requirements*.txt
 
       - name: Install Dependencies
         run: |
-          pip install -r requirements.txt
-
-      - uses: Nuitka/Nuitka-Action@main
-        with:
-          nuitka-version: '2.3.11'
-          script-name: run_advertiser.py
-          standalone: true
-          onefile: false
-          report: report.xml
-          report-diffable: true
-          quiet: false
-          show-scons: true
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: build folder
-          path: build/*
-
-      - name: Upload Report
-        uses: actions/upload-artifact@v3
-        with:
-          name: report.xml
-          path: report.xml
-
-      - name: Document pip environment
-        run: |
-          pip list -v
+          pip install --no-cache-dir -v libusb-package
